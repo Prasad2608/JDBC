@@ -1,8 +1,11 @@
 package DemoPractice;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
-public class getData {
+import java.sql.Statement;
+
+public class executeUpdate {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -11,22 +14,18 @@ public class getData {
 		String pass = "root";
 		
 		Class.forName("com.mysql.jdbc.Driver");
+		
 		Connection con = DriverManager.getConnection(url , uname , pass);
+		
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from student");
 		
-		String StudentsData;
+		int count  = stmt.executeUpdate("insert into student values(4 , 'XYZ')");
 		
-		while(rs.next()) {
-			
-			StudentsData = rs.getInt(1)+" : "+rs.getString(2);
-			System.out.println(StudentsData);
-		}
+		System.out.println(count + "row/s affected");
 		
 		stmt.close();
 		con.close();
-		
-		
+
 	}
 
 }
